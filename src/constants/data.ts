@@ -12,10 +12,12 @@ import {
   getLeaveLink,
   getPayrollLink,
   getPerformanceReviewsLink,
+  getRoleLink,
   getRolePermissionLink,
   getSecurityLink,
   getSettingsLink,
   getTeamManagementLink,
+  getUserLink,
   getUserProfileLink,
 } from "@/routes/router-link";
 import { NavItem } from "@/types";
@@ -28,6 +30,7 @@ export type User = {
   verified: boolean;
   status: string;
 };
+
 export const users: User[] = [
   {
     id: 1,
@@ -148,6 +151,22 @@ export const navItems: NavItem[] = [
     icon: "dashboard",
     isActive: false,
     shortcut: ["d", "d"],
+    items: [],
+  },
+  {
+    title: "Users",
+    url: getUserLink(),
+    icon: "user",
+    isActive: false,
+    shortcut: ["e", "e"],
+    items: [],
+  },
+  {
+    title: "Roles",
+    url: getRoleLink(),
+    icon: "link",
+    isActive: false,
+    shortcut: ["e", "e"],
     items: [],
   },
   {

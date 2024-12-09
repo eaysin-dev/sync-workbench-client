@@ -1,4 +1,3 @@
-" ";
 import { AlertModal } from "@/components/modal/alert-modal";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,21 +7,33 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Employee } from "@/constants/data";
+import { usersModalTypes } from "@/constants/modal-types";
+import { openEditModal } from "@/features/modal/modal-slice";
+import { useDeleteUserMutation } from "@/features/users/users-api";
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { toast } from "sonner";
+import { UserTableRow } from "../../../../hooks/use-table-filters";
 
 interface CellActionProps {
-  data: Employee;
+  data: UserTableRow;
 }
 
-export const CellAction: React.FC<CellActionProps> = ({ data }) => {
+export const CellAction = ({ data }: CellActionProps) => {
+  const dispatch = useDispatch();
   const [loading] = useState(false);
   const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
 
-  const onConfirm = async () => {};
+  const [deleteUser, { status, isSuccess }] = useDeleteUserMutation();
+  const handleOpenEditModal = (data: UserTableRow) =>
+    dispatch(openEditModal({ modalId: usersModalTypes.editUsers, data }));
+
+  const onConfirm = () => {
+    deleteUser(data?.id);
+    if (status === "fulfilled" && isSuccess)
+      toast.success("User deleted successfully!");
+  };
 
   return (
     <>
@@ -42,9 +53,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
 
-          <DropdownMenuItem
-            onClick={() => navigate(`/dashboard/user/${data.id}`)}
-          >
+          <DropdownMenuItem onClick={() => handleOpenEditModal(data)}>
             <Edit className="mr-2 h-4 w-4" /> Update
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setOpen(true)}>

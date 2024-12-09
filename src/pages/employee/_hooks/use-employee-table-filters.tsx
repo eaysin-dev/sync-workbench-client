@@ -32,7 +32,6 @@ const defaultSearchParams: SearchParams = {
 export function useEmployeeTableFilters(
   searchParams: SearchParams = defaultSearchParams // Default to the fallback values if not passed
 ): UseEmployeeTableFilters {
-  // State hooks for search, gender filter, and pagination
   const [searchQuery, setSearchQuery] = useState<string>(searchParams.q || "");
   const [genderFilter, setGenderFilter] = useState<string>(
     searchParams.gender || ""

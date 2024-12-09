@@ -1,5 +1,5 @@
+import { Heading } from "@/components/heading/heading";
 import { buttonVariants } from "@/components/ui/button";
-import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
 import { Employee } from "@/constants/data";
 import PageContainer from "@/layout/root-layout/page-container";
@@ -7,7 +7,6 @@ import { cn } from "@/lib/utils";
 import { Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import EmployeeTable from "./_components/employee-tables";
 import { fakeUsers } from "./data";
 
 // Defining types for the API response (or mock data) for users
@@ -48,6 +47,15 @@ export default function EmployeePage() {
     ...(gender && { genders: gender }),
   };
 
+  // const { data: employee } = useReadEmployeesQuery({
+  //   limit,
+  //   page,
+  //   populate,
+  //   search,
+  //   sortBy,
+  //   sortType,
+  // });
+
   useEffect(() => {
     // Mock API call to fetch user data (replace with actual API call)
     const fetchData = async () => {
@@ -76,7 +84,7 @@ export default function EmployeePage() {
           </Link>
         </div>
         <Separator />
-        <EmployeeTable data={employees} totalData={totalUsers} />
+        {/* <EmployeeTable data={employees} totalData={totalUsers} /> */}
       </div>
     </PageContainer>
   );

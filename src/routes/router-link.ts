@@ -2,8 +2,12 @@ export const getAccountLink = (): string => "/account";
 export const getLoginLink = (): string => "/";
 export const getRegisterLink = (): string => "/auth/register";
 
+export const getRoleLink = (): string => "/roles";
+
 export const getDashboardLink = (): string => "/dashboard/overview";
 export const getEmployeeLink = (): string => "/employee";
+export const getUserLink = (): string => "/user";
+
 export const getDepartmentLink = (): string => "/department";
 export const getDesignationLink = (): string => "/designation";
 export const getRolePermissionLink = (): string => "/role-permission";

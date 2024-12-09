@@ -1,5 +1,3 @@
-" ";
-
 import { FileUploader } from "@/components/file-uploader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -136,7 +134,7 @@ export default function ProductForm({
                     <FormLabel>Category</FormLabel>
                     <Select
                       onValueChange={(value) => field.onChange(value)}
-                      value={field.value[field.value.length - 1]}
+                      value={field.value[field.value?.length - 1]}
                     >
                       <FormControl>
                         <SelectTrigger>

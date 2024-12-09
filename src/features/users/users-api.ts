@@ -1,5 +1,6 @@
-import { RootResponse } from "@/constants/api-interface/root";
 import { User } from "@/models/User";
+import { UserEditFormDataType } from "@/pages/users/_hooks/use-user-edit";
+import { RootResponse } from "@/types";
 import {
   buildQueryString,
   GetAllQueryParams,
@@ -30,7 +31,7 @@ const userApi = API.injectEndpoints({
      * @url /users
      * @method GET
      */
-    readUsers: builder.query<RootResponse<User>, GetAllQueryParams>({
+    readUsers: builder.query<RootResponse<User[]>, GetAllQueryParams>({
       query: (queryParams: GetAllQueryParams) => {
         return buildQueryString("/users", queryParams);
       },
@@ -65,7 +66,10 @@ const userApi = API.injectEndpoints({
      * @url /users/{id}
      * @method PUT
      */
-    updateUser: builder.mutation({
+    updateUser: builder.mutation<
+      RootResponse<User>,
+      { id: string; body: User }
+    >({
       query: ({ id, body }) => ({
         url: `/users/${id}`,
         method: "PUT",
@@ -79,7 +83,10 @@ const userApi = API.injectEndpoints({
      * @url /users/{id}
      * @method PATCH
      */
-    updateUserPartially: builder.mutation({
+    updateUserPartially: builder.mutation<
+      RootResponse<User>,
+      { id: string; body: Partial<UserEditFormDataType> }
+    >({
       query: ({ id, body }) => ({
         url: `/users/${id}`,
         method: "PATCH",
@@ -94,7 +101,7 @@ const userApi = API.injectEndpoints({
      * @method DELETE
      */
     deleteUser: builder.mutation({
-      query: (id) => ({
+      query: (id: string) => ({
         url: `/users/${id}`,
         method: "DELETE",
       }),

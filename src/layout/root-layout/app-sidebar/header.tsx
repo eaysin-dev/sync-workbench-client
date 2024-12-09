@@ -2,7 +2,7 @@ import { GalleryVerticalEnd } from "lucide-react";
 
 // Default company object
 const company = {
-  name: "Acme Inc",
+  name: "Sync WordBench",
   logo: GalleryVerticalEnd,
   plan: "Enterprise",
 };

@@ -1,5 +1,4 @@
-'use client';
-import { Button } from '../button';
+import { Button } from "../button";
 
 type DataTableResetFilterProps = {
   isFilterActive: boolean;
@@ -8,7 +7,7 @@ type DataTableResetFilterProps = {
 
 export function DataTableResetFilter({
   isFilterActive,
-  onReset
+  onReset,
 }: DataTableResetFilterProps) {
   return (
     <>

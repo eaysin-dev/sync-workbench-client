@@ -12,7 +12,7 @@ export interface Product {
 // Function to generate a single fake product
 function generateFakeProduct(id: number): Product {
   const categories = ["Electronics", "Books", "Clothing", "Home", "Sports"];
-  const category = categories[Math.floor(Math.random() * categories.length)];
+  const category = categories[Math.floor(Math.random() * categories?.length)];
 
   return {
     id,

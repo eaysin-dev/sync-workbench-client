@@ -2,7 +2,7 @@ export interface GetAllQueryParams {
   search?: string;
   page?: number;
   limit?: number;
-  sortType?: "asc" | "dsc";
+  sortType?: "asc" | "desc";
   sortBy?: string;
   populate?: string | string[];
 }
@@ -22,7 +22,7 @@ export const buildGetByIdQueryString = (params: GetByIdQueryParams): string => {
     queryParams.push(`populate=${populateValue}`);
   }
 
-  return queryParams.length ? `?${queryParams.join("&")}` : "";
+  return queryParams?.length ? `?${queryParams.join("&")}` : "";
 };
 
 export const buildGetAllQueryString = (params: GetAllQueryParams): string => {
@@ -41,7 +41,7 @@ export const buildGetAllQueryString = (params: GetAllQueryParams): string => {
     queryParams.push(`populate=${populateValue}`);
   }
 
-  return queryParams.length ? `?${queryParams.join("&")}` : "";
+  return queryParams?.length ? `?${queryParams.join("&")}` : "";
 };
 
 export const buildQueryString = (

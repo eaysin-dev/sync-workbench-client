@@ -1,5 +1,3 @@
-" ";
-
 import { CrossIcon, UploadIcon } from "lucide-react";
 import * as React from "react";
 import Dropzone, {
@@ -113,12 +111,12 @@ export function FileUploader(props: FileUploaderProps) {
 
   const onDrop = React.useCallback(
     (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
-      if (!multiple && maxFiles === 1 && acceptedFiles.length > 1) {
+      if (!multiple && maxFiles === 1 && acceptedFiles?.length > 1) {
         toast.error("Cannot upload more than 1 file at a time");
         return;
       }
 
-      if ((files?.length ?? 0) + acceptedFiles.length > maxFiles) {
+      if ((files?.length ?? 0) + acceptedFiles?.length > maxFiles) {
         toast.error(`Cannot upload more than ${maxFiles} files`);
         return;
       }
@@ -133,7 +131,7 @@ export function FileUploader(props: FileUploaderProps) {
 
       setFiles(updatedFiles);
 
-      if (rejectedFiles.length > 0) {
+      if (rejectedFiles?.length > 0) {
         rejectedFiles.forEach(({ file }) => {
           toast.error(`File ${file.name} was rejected`);
         });
@@ -141,11 +139,11 @@ export function FileUploader(props: FileUploaderProps) {
 
       if (
         onUpload &&
-        updatedFiles.length > 0 &&
-        updatedFiles.length <= maxFiles
+        updatedFiles?.length > 0 &&
+        updatedFiles?.length <= maxFiles
       ) {
         const target =
-          updatedFiles.length > 0 ? `${updatedFiles.length} files` : `file`;
+          updatedFiles?.length > 0 ? `${updatedFiles?.length} files` : `file`;
 
         toast.promise(onUpload(updatedFiles), {
           loading: `Uploading ${target}...`,

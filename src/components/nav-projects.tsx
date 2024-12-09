@@ -1,5 +1,3 @@
-" ";
-
 import {
   Folder,
   Forward,

@@ -121,7 +121,7 @@ export const fakeUsers = {
     let users = [...this.records];
 
     // Filter users based on selected genders
-    if (genders.length > 0) {
+    if (genders?.length > 0) {
       users = users.filter((user) => genders.includes(user.gender));
     }
 
@@ -157,9 +157,8 @@ export const fakeUsers = {
     search?: string;
   }) {
     const gendersArray = genders ? genders.split(".") : [];
-    console.log("gendersArray", gendersArray);
     const allUsers = await this.getAll({ genders: gendersArray, search });
-    const totalUsers = allUsers.length;
+    const totalUsers = allUsers?.length;
 
     // Pagination logic
     const offset = (page - 1) * limit;
@@ -248,7 +247,7 @@ export const fakeProducts = {
     let products = [...this.records];
 
     // Filter products based on selected categories
-    if (categories.length > 0) {
+    if (categories?.length > 0) {
       products = products.filter((product) =>
         categories.includes(product.category)
       );
@@ -282,7 +281,7 @@ export const fakeProducts = {
       categories: categoriesArray,
       search,
     });
-    const totalProducts = allProducts.length;
+    const totalProducts = allProducts?.length;
 
     // Pagination logic
     const offset = (page - 1) * limit;

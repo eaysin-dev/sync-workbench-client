@@ -95,8 +95,6 @@ export const authApi = API.injectEndpoints({
 
           const decoded = decodeToken(accessToken);
 
-          console.log("calling login endpoints in logion");
-
           dispatch(
             login({
               user: decoded,
@@ -105,8 +103,6 @@ export const authApi = API.injectEndpoints({
             })
           );
         } else {
-          console.log("call in login endpoints in logout");
-
           dispatch(logout());
         }
       },

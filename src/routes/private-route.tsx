@@ -7,10 +7,14 @@ import {
   default as Profile,
   default as ProfileViewPage,
 } from "@/pages/profile";
+import RolesPage from "@/pages/role";
+import UsersPage from "@/pages/users";
 import { RouteObject } from "react-router-dom";
 import {
   getDashboardLink,
   getEmployeeLink,
+  getRoleLink,
+  getUserLink,
   getUserProfileLink,
 } from "./router-link";
 
@@ -22,6 +26,9 @@ const privateRoute: RouteObject[] = [
         element: <RootLayout />,
         children: [
           { path: getDashboardLink(), element: <OverViewPage /> },
+          { path: getUserLink(), element: <UsersPage /> },
+          { path: getRoleLink(), element: <RolesPage /> },
+
           {
             path: getUserProfileLink(),
             element: <Profile />,

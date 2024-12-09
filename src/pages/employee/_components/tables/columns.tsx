@@ -1,4 +1,3 @@
-" ";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Employee } from "@/constants/data";
 import { ColumnDef } from "@tanstack/react-table";

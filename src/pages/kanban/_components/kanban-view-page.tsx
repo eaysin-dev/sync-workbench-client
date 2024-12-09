@@ -1,4 +1,4 @@
-import { Heading } from "@/components/ui/heading";
+import { Heading } from "@/components/heading/heading";
 import PageContainer from "@/layout/root-layout/page-container";
 import { KanbanBoard } from "./kanban-board";
 import NewTaskDialog from "./new-task-dialog";

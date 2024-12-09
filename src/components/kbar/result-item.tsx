@@ -1,12 +1,12 @@
-import type { ActionId, ActionImpl } from 'kbar';
-import * as React from 'react';
+import type { ActionId, ActionImpl } from "kbar";
+import * as React from "react";
 
 const ResultItem = React.forwardRef(
   (
     {
       action,
       active,
-      currentRootActionId
+      currentRootActionId,
     }: {
       action: ActionImpl;
       active: boolean;
@@ -37,7 +37,7 @@ const ResultItem = React.forwardRef(
           {action.icon && action.icon}
           <div className="flex flex-col">
             <div>
-              {ancestors.length > 0 &&
+              {ancestors?.length > 0 &&
                 ancestors.map((ancestor) => (
                   <React.Fragment key={ancestor.id}>
                     <span className="mr-2 opacity-50">{ancestor.name}</span>
@@ -70,6 +70,6 @@ const ResultItem = React.forwardRef(
   }
 );
 
-ResultItem.displayName = 'KBarResultItem';
+ResultItem.displayName = "KBarResultItem";
 
 export default ResultItem;

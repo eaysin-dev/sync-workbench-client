@@ -31,8 +31,6 @@ const useAuthCheck = () => {
     setIsAuthChecking(false);
   }
 
-  console.log({ decodedUser });
-
   const userId = decodedUser?.id || "";
   const isAuthenticate = Boolean(isLoggedIn && accessToken && refreshToken);
 

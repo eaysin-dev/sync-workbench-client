@@ -73,7 +73,7 @@ const taskSlice = createSlice({
     // Action to add a new column
     addCol: (state, action: PayloadAction<{ title: string }>) => {
       const { title } = action.payload;
-      const newColumnId = state.columns.length ? title.toUpperCase() : "TODO";
+      const newColumnId = state.columns?.length ? title.toUpperCase() : "TODO";
       state.columns.push({ title, id: newColumnId });
     },
 

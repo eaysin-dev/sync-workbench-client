@@ -1,4 +1,4 @@
-" ";
+import { Heading } from "@/components/heading/heading";
 import {
   Accordion,
   AccordionContent,
@@ -14,7 +14,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Heading } from "@/components/ui/heading";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -75,7 +74,6 @@ const ProfileCreateForm: React.FC<ProfileFormType> = ({ initialData }) => {
   });
 
   const processForm: SubmitHandler<ProfileFormValues> = (data) => {
-    console.log("data ==>", data);
     setData(data);
     // api call and reset
     // form.reset();
@@ -124,8 +122,8 @@ const ProfileCreateForm: React.FC<ProfileFormType> = ({ initialData }) => {
 
     if (!output) return;
 
-    if (currentStep < steps.length - 1) {
-      if (currentStep === steps.length - 2) {
+    if (currentStep < steps?.length - 1) {
+      if (currentStep === steps?.length - 2) {
         await form.handleSubmit(processForm)();
       }
       setCurrentStep((step) => step + 1);
@@ -582,7 +580,7 @@ const ProfileCreateForm: React.FC<ProfileFormType> = ({ initialData }) => {
           <button
             type="button"
             onClick={next}
-            disabled={currentStep === steps.length - 1}
+            disabled={currentStep === steps?.length - 1}
             className="rounded bg-white px-2 py-1 text-sm font-semibold text-sky-900 shadow-sm ring-1 ring-inset ring-sky-300 hover:bg-sky-50 disabled:cursor-not-allowed disabled:opacity-50"
           >
             <svg

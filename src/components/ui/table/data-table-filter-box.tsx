@@ -1,5 +1,3 @@
-"use client";
-
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -32,9 +30,7 @@ interface FilterBoxProps {
   filterKey: string;
   title: string;
   options: FilterOption[];
-  setFilterValue: (
-    value: string | ((old: string) => string | null) | null
-  ) => Promise<URLSearchParams>;
+  setFilterValue: (value: string | null) => void;
   filterValue: string;
 }
 
