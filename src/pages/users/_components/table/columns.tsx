@@ -39,29 +39,27 @@ export const columns: ColumnDef<UserTableRow>[] = [
   {
     accessorKey: "username",
     header: ({ column }) => <SortableHeader column={column} title="username" />,
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("username")}</div>
-    ),
+    cell: ({ row }) => row.getValue("username"),
   },
   {
     accessorKey: "role",
     header: ({ column }) => <SortableHeader column={column} title="Role" />,
-    cell: ({ row }) => <div className="lowercase">{row.getValue("role")}</div>,
+    cell: ({ row }) => row.getValue("role"),
   },
   {
     accessorKey: "email",
     header: ({ column }) => <SortableHeader column={column} title="Email" />,
-    cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
+    cell: ({ row }) => row.getValue("email"),
   },
   {
     accessorKey: "status",
     header: ({ column }) => <SortableHeader column={column} title="Status" />,
-    cell: ({ row }) => <div>{row.getValue("status")}</div>,
+    cell: ({ row }) => row.getValue("status"),
   },
   {
     accessorKey: "gender",
     header: ({ column }) => <SortableHeader column={column} title="Gender" />,
-    cell: ({ row }) => <div>{row.getValue("gender")}</div>,
+    cell: ({ row }) => row.getValue("gender"),
   },
   {
     id: "actions",

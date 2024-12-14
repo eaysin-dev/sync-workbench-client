@@ -1,6 +1,6 @@
 import { RouterProvider } from "react-router-dom";
 import Loader from "./components/loader/loader";
-import useAuthCheck from "./hooks/auth/useAuthCheck";
+import useAuthCheck from "./hooks/auth/use-auth-check";
 import router from "./routes/router";
 
 function App() {

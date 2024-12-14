@@ -9,7 +9,6 @@ import {
   getUserProfileLink,
 } from "./router-link";
 
-// Lazy-loaded components
 import {
   EmployeePage,
   OverViewPage,
@@ -29,7 +28,6 @@ const privateRoute: RouteObject[] = [
           { path: getDashboardLink(), element: <OverViewPage /> },
           { path: getUserLink(), element: <UsersPage /> },
           { path: getRoleLink(), element: <RolesPage /> },
-
           {
             path: getUserProfileLink(),
             element: <Profile />,

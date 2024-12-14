@@ -14,10 +14,11 @@ interface ColumnManagerProps<TData> {
 export const ColumnManager = <TData,>({ table }: ColumnManagerProps<TData>) => {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <div className="flex items-center justify-end pt-1.5 pr-1.5 cursor-pointer absolute top-0.5 right-0.5">
-          <Columns3 size={13} />
-        </div>
+      <DropdownMenuTrigger
+        asChild
+        className="flex items-center justify-end pt-1.5 pr-1.5 cursor-pointer absolute top-0.5 right-0.5"
+      >
+        <Columns3 size={18} />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         {table

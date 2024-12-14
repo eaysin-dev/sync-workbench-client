@@ -60,13 +60,17 @@ const DataTable = <TData extends object>({
 
   return (
     <ScrollArea className="grid rounded-md border">
+      <ColumnManager table={table} />
       <Table className="relative min-w-[640px] overflow-x-auto">
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
                 return (
-                  <TableHead className="px-3 whitespace-nowrap" key={header.id}>
+                  <TableHead
+                    className="px-3 whitespace-nowrap capitalize"
+                    key={header.id}
+                  >
                     {header.isPlaceholder
                       ? null
                       : flexRender(
@@ -78,7 +82,6 @@ const DataTable = <TData extends object>({
               })}
             </TableRow>
           ))}
-          <ColumnManager table={table} />
         </TableHeader>
         <TableBody>
           {table.getRowModel().rows?.length ? (
