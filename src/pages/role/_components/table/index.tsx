@@ -1,5 +1,5 @@
 import Pagination from "@/components/pagination";
-import { DataTable } from "@/components/ui/table/data-table";
+import DataTable from "@/components/ui/table/data-table";
 import { useReadRolesQuery } from "@/features/role/role-api";
 import usePagination from "@/hooks/use-pagination";
 import { useTableFilter } from "../../../../hooks/use-table-filters";
@@ -13,7 +13,6 @@ export default function RolesTable() {
     resetFilters,
     setSearchQuery,
     setPage,
-    handleSortChange,
     sortBy,
     sortType,
   } = useTableFilter();
@@ -21,17 +20,16 @@ export default function RolesTable() {
   const {
     handlePageChange,
     handlePageSizeChange,
-    pageCount,
     paginationState,
     currentPage,
     pageSize,
-  } = usePagination({ totalItems: 4 });
+  } = usePagination({});
 
   const { data: roles } = useReadRolesQuery({
     limit: pageSize,
     page: currentPage,
     populate: ["role"],
-    search: searchQuery || "",
+    searchQuery: searchQuery || "",
     sortBy: sortBy || "",
     sortType: sortType || "asc",
   });
@@ -46,21 +44,12 @@ export default function RolesTable() {
         setSearchQuery={setSearchQuery}
       />
 
-      <DataTable
-        columns={columns}
-        data={roles?.data || []}
-        handlePageChange={handlePageChange}
-        pageCount={pageCount}
-        paginationState={paginationState}
-        onSortChange={handleSortChange}
-        sortType={sortType}
-        sortBy={sortBy}
-      />
+      <DataTable columns={columns} data={roles?.data || []} />
 
       <Pagination
         handlePageChange={handlePageChange}
         handlePageSizeChange={handlePageSizeChange}
-        pageCount={pageCount}
+        pageSize={pageSize}
         paginationState={paginationState}
         totalItems={roles?.data?.length || 0}
       />

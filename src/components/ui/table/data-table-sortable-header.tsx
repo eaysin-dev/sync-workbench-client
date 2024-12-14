@@ -15,11 +15,7 @@ const SortableHeader = <TData, TValue>({
     <Button
       className="p-0 hover:bg-transparent capitalize"
       variant={"ghost"}
-      onClick={() => {
-        console.log(column.getIsSorted());
-
-        column.toggleSorting();
-      }}
+      onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
     >
       {title}
       <ArrowUpDown className="ml-2 h-4 w-4" />

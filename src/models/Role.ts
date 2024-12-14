@@ -1,5 +1,5 @@
 export interface Role {
-  _id: string;
+  id: string;
   name: string;
   description: string;
   createdAt: string;

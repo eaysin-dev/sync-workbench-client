@@ -1,12 +1,14 @@
 import { RootState } from "@/app/store";
-import { closeEditModal } from "@/features/modal/modal-slice";
+import { userMessages } from "@/constants/user-messages";
 import { useUpdateUserPartiallyMutation } from "@/features/users/users-api";
+import useCloseModal from "@/hooks/use-close-modal";
+import { handleApiCall } from "@/utils/handle-api-call";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useTransition } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { toast } from "sonner";
+import { useSelector } from "react-redux";
 import { z } from "zod";
+import { UserTableRow } from "../_type";
 
 const formSchema = z.object({
   username: z.string().min(1, { message: "Username is required" }),
@@ -18,12 +20,11 @@ const formSchema = z.object({
 export type UserEditFormDataType = z.infer<typeof formSchema>;
 
 const useUserEdit = () => {
-  const dispatch = useDispatch();
+  const { closeAllModals } = useCloseModal();
 
-  const { editModal } = useSelector((state: RootState) => state.modal);
-
-  const [isPending, startTransition] = useTransition();
-
+  const user = useSelector(
+    (state: RootState) => state.modal.editModal.data as UserTableRow | null
+  );
   const form = useForm<UserEditFormDataType>({
     resolver: zodResolver(formSchema),
     defaultValues: {},
@@ -32,40 +33,25 @@ const useUserEdit = () => {
   const [updateUser, { isError, error }] = useUpdateUserPartiallyMutation();
 
   const onSubmit = (data: UserEditFormDataType) => {
-    startTransition(() => {
-      updateUser({ id: editModal?.data?.id || "", body: data })
-        .unwrap()
-        .then(() => {
-          toast.success("User updated successfully!");
-          dispatch(closeEditModal());
-        })
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .catch((error: any) => {
-          toast.error(
-            error?.data?.message || "Failed to edit user. Please try again."
-          );
-        });
+    handleApiCall({
+      apiCall: updateUser({ id: user?.id || "", body: data }),
+      successMessage: userMessages?.success?.update,
+      errorMessage: userMessages?.error?.update,
+      onSuccess: () => closeAllModals(),
     });
   };
 
-  const closeModal = () => {
-    dispatch(closeEditModal());
-  };
-
   useEffect(() => {
-    if (editModal?.data) {
-      form.reset(editModal.data);
-    }
-  }, [editModal?.data, form]);
+    if (user) form.reset(user);
+  }, [user, form]);
 
   return {
     onSubmit,
     isError,
     error,
     form,
-    isPending,
+    isSubmitting: form?.formState?.isSubmitting,
     errors: form.formState.errors,
-    closeModal,
   };
 };
 

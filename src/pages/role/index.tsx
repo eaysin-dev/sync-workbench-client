@@ -1,22 +1,55 @@
 import { RootState } from "@/app/store";
 import PageHeader from "@/components/heading/page-heading";
 import DefaultModal from "@/components/modal/default-modal";
+import Pagination from "@/components/pagination";
 import { Separator } from "@/components/ui/separator";
+import DataTable from "@/components/ui/table/data-table";
 import { rolesModalTypes } from "@/constants/modal-types";
+import useCloseModal from "@/hooks/use-close-modal";
+import { useTableFilter } from "@/hooks/use-table-filters";
 import PageContainer from "@/layout/root-layout/page-container";
 import { useSelector } from "react-redux";
+import { columns } from "../product/data";
 import UserForm from "./_components/forms/user-create";
 import UserEditForm from "./_components/forms/user-edit";
-import RolesTable from "./_components/table";
+import Filters from "./_components/table/filters";
 import useRoleForm from "./hooks/use-create";
 import useUser from "./hooks/use-user";
 
 const RolesPage = () => {
-  const { closeModal, handleOpenModal, isOpenCreateUsers } = useUser();
+  const { handleOpenModal, isOpenCreateUsers } = useUser();
+  const { closeAllModals } = useCloseModal();
   const { editModal } = useSelector((state: RootState) => state.modal);
 
-  const { form, isPending, onSubmit, errors } = useRoleForm();
+  const { form, isPending, onSubmit, errors } = useRoleForm({ mode: "edit" });
   const isOpenEditUsers = editModal?.modalId === rolesModalTypes?.editRoles;
+
+  const {
+    searchQuery,
+    isAnyFilterActive,
+    resetFilters,
+    setSearchQuery,
+    setPage,
+    sortBy,
+    sortType,
+  } = useTableFilter();
+
+  const {
+    handlePageChange,
+    handlePageSizeChange,
+    paginationState,
+    currentPage,
+    pageSize,
+  } = usePagination({});
+
+  const { data: roles } = useReadRolesQuery({
+    limit: pageSize,
+    page: currentPage,
+    populate: ["role"],
+    searchQuery: searchQuery || "",
+    sortBy: sortBy || "",
+    sortType: sortType || "asc",
+  });
 
   return (
     <PageContainer scrollable>
@@ -27,13 +60,32 @@ const RolesPage = () => {
         actionLabel="Add New"
       />
       <Separator />
-      <RolesTable />
+
+      <div className="space-y-4">
+        <Filters
+          isAnyFilterActive={isAnyFilterActive}
+          resetFilters={resetFilters}
+          searchQuery={searchQuery}
+          setPage={setPage}
+          setSearchQuery={setSearchQuery}
+        />
+
+        <DataTable columns={columns} data={roles?.data || []} />
+
+        <Pagination
+          handlePageChange={handlePageChange}
+          handlePageSizeChange={handlePageSizeChange}
+          pageSize={pageSize}
+          paginationState={paginationState}
+          totalItems={roles?.data?.length || 0}
+        />
+      </div>
 
       <DefaultModal
         title="Create Roles"
         description="description"
         opened={isOpenCreateUsers}
-        onClose={closeModal}
+        onClose={closeAllModals}
         size="xl"
       >
         <UserForm />
@@ -41,7 +93,7 @@ const RolesPage = () => {
 
       <DefaultModal
         opened={isOpenEditUsers}
-        onClose={closeModal}
+        onClose={closeAllModals}
         title="Edit User"
       >
         <UserEditForm
@@ -49,7 +101,7 @@ const RolesPage = () => {
           isPending={isPending}
           onSubmit={onSubmit}
           errors={errors}
-          onClose={closeModal}
+          onClose={closeAllModals}
         />
       </DefaultModal>
     </PageContainer>

@@ -31,32 +31,28 @@ interface FilterBoxProps {
   title: string;
   options: FilterOption[];
   setFilterValue: (value: string | null) => void;
-  filterValue: string;
+  filterValue: (string | null)[];
+  resetFilterByKey: (key: string) => void;
 }
 
 export function DataTableFilterBox({
   title,
   options,
   setFilterValue,
+  filterKey,
   filterValue,
+  resetFilterByKey,
 }: FilterBoxProps) {
   const selectedValuesSet = React.useMemo(() => {
     if (!filterValue) return new Set<string>();
-    const values = filterValue.split(".");
-    return new Set(values.filter((value) => value !== ""));
+    return new Set(filterValue.filter((value) => value !== ""));
   }, [filterValue]);
 
   const handleSelect = (value: string) => {
-    const newSet = new Set(selectedValuesSet);
-    if (newSet.has(value)) {
-      newSet.delete(value);
-    } else {
-      newSet.add(value);
-    }
-    setFilterValue(Array.from(newSet).join(".") || null);
+    setFilterValue(value);
   };
 
-  const resetFilter = () => setFilterValue(null);
+  const resetFilter = () => resetFilterByKey(filterKey);
 
   return (
     <Popover>
@@ -132,11 +128,8 @@ export function DataTableFilterBox({
             {selectedValuesSet.size > 0 && (
               <>
                 <CommandSeparator />
-                <CommandGroup>
-                  <CommandItem
-                    onSelect={resetFilter}
-                    className="justify-center text-center"
-                  >
+                <CommandGroup onClick={resetFilter}>
+                  <CommandItem className="justify-center text-center cursor-pointer">
                     Clear filters
                   </CommandItem>
                 </CommandGroup>

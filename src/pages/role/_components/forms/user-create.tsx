@@ -4,7 +4,9 @@ import { Form } from "@/components/ui/form";
 import useUserForm from "../../hooks/use-create";
 
 const UserForm = () => {
-  const { form, isPending, onSubmit, errors, closeModal } = useUserForm();
+  const { form, isPending, onSubmit, errors, closeAllModals } = useUserForm({
+    mode: "create",
+  });
 
   return (
     <Form {...form}>
@@ -32,7 +34,7 @@ const UserForm = () => {
         </div>
 
         <div className="pt-2 w-full flex justify-end gap-5">
-          <Button onClick={closeModal}>Cancel</Button>
+          <Button onClick={closeAllModals}>Cancel</Button>
 
           <Button disabled={isPending} type="submit">
             {isPending ? "Creating..." : "Create"}

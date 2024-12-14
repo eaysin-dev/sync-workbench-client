@@ -1,10 +1,6 @@
 import { RootState } from "@/app/store";
 import { rolesModalTypes } from "@/constants/modal-types";
-import {
-  closeCreateModal,
-  closeEditModal,
-  openCreateModal,
-} from "@/features/modal/modal-slice";
+import { openModal } from "@/features/modal/modal-slice";
 import { useDispatch, useSelector } from "react-redux";
 
 const useRole = () => {
@@ -15,15 +11,13 @@ const useRole = () => {
 
   const handleOpenModal = () =>
     dispatch(
-      openCreateModal({ modalId: rolesModalTypes.createRoles, data: null })
+      openModal({
+        type: "createModal",
+        modalId: rolesModalTypes.createRoles,
+      })
     );
 
-  const closeModal = () => {
-    dispatch(closeCreateModal());
-    dispatch(closeEditModal());
-  };
-
-  return { isOpenCreateUsers, handleOpenModal, closeModal };
+  return { isOpenCreateUsers, handleOpenModal };
 };
 
 export default useRole;

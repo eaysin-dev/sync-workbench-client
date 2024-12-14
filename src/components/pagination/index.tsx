@@ -22,7 +22,7 @@ interface PaginationProps {
   pageSizeOptions?: number[];
   handlePageSizeChange: (pageSize: number) => void;
   handlePageChange: (pageIndex: number) => void;
-  pageCount: number;
+  pageSize: number;
 }
 
 const Pagination = ({
@@ -31,8 +31,10 @@ const Pagination = ({
   pageSizeOptions = defaultConfig.pageSizeOptions,
   handlePageSizeChange,
   handlePageChange,
-  pageCount,
+  pageSize,
 }: PaginationProps) => {
+  const pageCount = Math.ceil(totalItems / pageSize);
+
   return (
     <div className="flex flex-col items-center justify-end gap-2 space-x-2 py-4 sm:flex-row">
       <div className="flex w-full items-center justify-between">

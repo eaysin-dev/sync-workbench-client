@@ -3,11 +3,12 @@ import { DataTableResetFilter } from "@/components/ui/table/data-table-reset-fil
 import { DataTableSearch } from "@/components/ui/table/data-table-search";
 
 interface FiltersProps {
-  filters: Record<string, string | null>;
+  filters: Record<string, (string | null)[]>;
   searchQuery: string | null;
   setSearchQuery: (query: string | null) => void;
   updateFilter: (key: string, value: string | null) => void;
-  resetFilters: () => void;
+  resetAllFilters: () => void;
+  resetFilterByKey: (key: string) => void;
   isAnyFilterActive: boolean;
   setPage: (value: number | null) => void;
 }
@@ -17,7 +18,8 @@ const Filters = ({
   searchQuery,
   setSearchQuery,
   updateFilter,
-  resetFilters,
+  resetAllFilters,
+  resetFilterByKey,
   isAnyFilterActive,
   setPage,
 }: FiltersProps) => (
@@ -37,7 +39,8 @@ const Filters = ({
         { value: "employee", label: "Employee" },
       ]}
       setFilterValue={(value) => updateFilter("role", value)}
-      filterValue={filters?.role || ""}
+      filterValue={filters?.role || []}
+      resetFilterByKey={resetFilterByKey}
     />
 
     <DataTableFilterBox
@@ -49,11 +52,12 @@ const Filters = ({
       ]}
       setFilterValue={(value) => updateFilter("status", value)}
       filterValue={filters?.status || ""}
+      resetFilterByKey={resetFilterByKey}
     />
 
     <DataTableResetFilter
       isFilterActive={isAnyFilterActive}
-      onReset={resetFilters}
+      onReset={resetAllFilters}
     />
   </div>
 );

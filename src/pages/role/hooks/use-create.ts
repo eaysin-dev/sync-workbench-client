@@ -1,14 +1,15 @@
 import { RootState } from "@/app/store";
-import { closeCreateModal, closeEditModal } from "@/features/modal/modal-slice";
 import {
   useCreateRoleMutation,
   useUpdateRoleMutation,
 } from "@/features/role/role-api";
+import useCloseModal from "@/hooks/use-close-modal";
 import { Role } from "@/models/Role";
+import { ApiResponseError } from "@/types/error";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTransition } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { toast } from "sonner";
 import { z } from "zod";
 
@@ -17,24 +18,26 @@ const formSchema = z.object({
   description: z.string().optional(),
 });
 
-export type FormDataType = z.infer<typeof formSchema>;
+export type RoleFormDataType = z.infer<typeof formSchema>;
 
-const initialState: FormDataType = { name: "", description: "" };
+const initialState: RoleFormDataType = {
+  name: "",
+  description: "",
+};
 
 const useRoleForm = ({ mode }: { mode: "create" | "edit" }) => {
-  const dispatch = useDispatch();
-  const { editModal } = useSelector((state: RootState) => state.modal);
-  const previousRoleData = editModal?.data as Role;
+  const { closeAllModals } = useCloseModal();
+  const role = useSelector(
+    (state: RootState) => state.modal?.editModal?.data as Role
+  );
 
   // Determine the initial data based on mode
   const initialData =
-    mode === "edit" && editModal?.data
-      ? { ...initialState, ...editModal.data }
-      : initialState;
+    mode === "edit" && role ? { ...initialState, ...role } : initialState;
 
   const [isPending, startTransition] = useTransition();
 
-  const form = useForm<FormDataType>({
+  const form = useForm<RoleFormDataType>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData,
   });
@@ -44,43 +47,37 @@ const useRoleForm = ({ mode }: { mode: "create" | "edit" }) => {
   const [updateRole, { isError: isUpdateError, error: updateError }] =
     useUpdateRoleMutation();
 
-  const closeModal = () => {
-    if (mode === "create") {
-      dispatch(closeCreateModal());
-    } else {
-      dispatch(closeEditModal());
-    }
-  };
-
-  const onSubmit = (data: FormDataType) => {
+  const onSubmit = (data: RoleFormDataType) => {
     startTransition(() => {
       if (mode === "create") {
         createRole(data)
           .unwrap()
           .then(() => {
             toast.success("Role created successfully!");
-            closeModal();
+            closeAllModals();
           })
-          .catch((error: any) => {
+          .catch((error: ApiResponseError) => {
             toast.error(
-              error?.data?.message || "Failed to create role. Please try again."
+              error?.data?.error?.message ||
+                "Failed to create role. Please try again."
             );
           });
       } else if (mode === "edit") {
-        if (!editModal?.data?.id) {
+        if (!role?.id) {
           toast.error("Role ID is missing for edit operation.");
           return;
         }
 
-        updateRole({ id: editModal.data.id, body: data })
+        updateRole({ id: role?.id, body: data })
           .unwrap()
           .then(() => {
             toast.success("Role updated successfully!");
-            closeModal();
+            closeAllModals();
           })
-          .catch((error: any) => {
+          .catch((error: ApiResponseError) => {
             toast.error(
-              error?.data?.message || "Failed to update role. Please try again."
+              error?.data?.error?.message ||
+                "Failed to update role. Please try again."
             );
           });
       }
@@ -96,7 +93,7 @@ const useRoleForm = ({ mode }: { mode: "create" | "edit" }) => {
     form,
     isPending,
     errors: form.formState.errors,
-    closeModal,
+    closeAllModals,
   };
 };
 

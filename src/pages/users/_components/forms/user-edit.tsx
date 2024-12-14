@@ -1,11 +1,11 @@
 import { FormInput } from "@/components/form-element";
-import ActionButtons from "@/components/modal/modal-action-button";
+import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { FieldErrors, UseFormReturn } from "react-hook-form";
 import { UserEditFormDataType } from "../../_hooks/use-user-edit";
 
 interface RegisterProps {
-  isPending: boolean;
+  isSubmitting: boolean;
   errors: FieldErrors<UserEditFormDataType>;
   onSubmit: (data: UserEditFormDataType) => void;
   form: UseFormReturn<UserEditFormDataType>;
@@ -14,7 +14,7 @@ interface RegisterProps {
 
 export default function UserEditForm({
   form,
-  isPending,
+  isSubmitting,
   onSubmit,
   errors,
   onClose,
@@ -50,7 +50,6 @@ export default function UserEditForm({
             placeholder="Enter your role"
             control={form.control}
             errorMsg={errors.role?.message}
-            disabled={isPending}
           />
 
           <FormInput
@@ -61,16 +60,18 @@ export default function UserEditForm({
             options={["Pending", "Active", "Inactive"]}
             control={form.control}
             errorMsg={errors.status?.message}
-            disabled={isPending}
           />
         </div>
 
-        <ActionButtons
-          isPending={isPending}
-          closeModal={onClose}
-          buttonText={"Update"}
-          modalType={"edit"}
-        />
+        <div className="pt-4 w-full flex justify-end gap-5">
+          <Button type="button" onClick={onClose} variant={"outline"}>
+            Cancel
+          </Button>
+
+          <Button disabled={isSubmitting} type="submit">
+            {isSubmitting ? "Creating..." : "Create"}
+          </Button>
+        </div>
       </form>
     </Form>
   );

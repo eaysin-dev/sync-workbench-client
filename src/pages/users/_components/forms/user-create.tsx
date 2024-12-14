@@ -1,10 +1,11 @@
 import { FormInput } from "@/components/form-element";
-import ActionButtons from "@/components/modal/modal-action-button";
+import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import useUserForm from "../../_hooks/use-user-create";
 
 const UserForm = () => {
-  const { form, isPending, onSubmit, errors, closeModal } = useUserForm();
+  const { form, isSubmitting, onSubmit, errors, closeAllModals } =
+    useUserForm();
 
   return (
     <Form {...form}>
@@ -26,7 +27,6 @@ const UserForm = () => {
             type="email"
             placeholder="Enter your email"
             control={form.control}
-            disabled={isPending}
             errorMsg={errors.email?.message}
           />
 
@@ -36,7 +36,6 @@ const UserForm = () => {
             type="password"
             placeholder="Enter your password"
             control={form.control}
-            disabled={isPending}
             errorMsg={errors.password?.message}
           />
 
@@ -46,7 +45,6 @@ const UserForm = () => {
             type="password"
             placeholder="Confirm your password"
             control={form.control}
-            disabled={isPending}
             errorMsg={errors.confirmPassword?.message}
           />
 
@@ -56,7 +54,6 @@ const UserForm = () => {
             type="text"
             placeholder="Enter your role"
             control={form.control}
-            disabled={isPending}
             errorMsg={errors.role?.message}
           />
 
@@ -67,17 +64,19 @@ const UserForm = () => {
             placeholder="Select status"
             options={["Pending", "Active", "Inactive"]}
             control={form.control}
-            disabled={isPending}
             errorMsg={errors.status?.message}
           />
         </div>
 
-        <ActionButtons
-          modalType="create"
-          closeModal={closeModal}
-          buttonText="Create"
-          isPending={isPending}
-        />
+        <div className="pt-4 w-full flex justify-end gap-5">
+          <Button type="button" onClick={closeAllModals} variant={"outline"}>
+            Cancel
+          </Button>
+
+          <Button disabled={isSubmitting} type="submit">
+            {isSubmitting ? "Creating..." : "Create"}
+          </Button>
+        </div>
       </form>
     </Form>
   );

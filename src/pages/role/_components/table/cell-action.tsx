@@ -8,16 +8,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { usersModalTypes } from "@/constants/modal-types";
-import { openEditModal } from "@/features/modal/modal-slice";
+import { openModal } from "@/features/modal/modal-slice";
 import { useDeleteUserMutation } from "@/features/users/users-api";
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "sonner";
-import { UserTableRow } from "../../../../hooks/use-table-filters";
+import { RoleTableRow } from "../../_type";
 
 interface CellActionProps {
-  data: UserTableRow;
+  data: RoleTableRow;
 }
 
 export const CellAction = ({ data }: CellActionProps) => {
@@ -26,8 +26,10 @@ export const CellAction = ({ data }: CellActionProps) => {
   const [open, setOpen] = useState(false);
 
   const [deleteUser, { status, isSuccess }] = useDeleteUserMutation();
-  const handleOpenEditModal = (data: UserTableRow) =>
-    dispatch(openEditModal({ modalId: usersModalTypes.editUsers, data }));
+  const handleOpenEditModal = (data: RoleTableRow) =>
+    dispatch(
+      openModal({ type: "editModal", modalId: usersModalTypes.editUsers, data })
+    );
 
   const onConfirm = () => {
     deleteUser(data?.id);

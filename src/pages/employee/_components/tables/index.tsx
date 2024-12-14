@@ -1,4 +1,4 @@
-import { DataTable } from "@/components/ui/table/data-table";
+import DataTable from "@/components/ui/table/data-table";
 import { DataTableFilterBox } from "@/components/ui/table/data-table-filter-box";
 import { DataTableResetFilter } from "@/components/ui/table/data-table-reset-filter";
 import { DataTableSearch } from "@/components/ui/table/data-table-search";
@@ -47,7 +47,7 @@ export default function EmployeeTable({
           onReset={resetFilters}
         />
       </div>
-      <DataTable columns={columns} data={data} totalItems={totalData} />
+      <DataTable columns={columns} data={data} />
     </div>
   );
 }

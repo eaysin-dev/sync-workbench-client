@@ -1,5 +1,5 @@
 export interface GetAllQueryParams {
-  search?: string;
+  searchQuery?: string;
   page?: number;
   limit?: number;
   sortType?: "asc" | "desc";
@@ -28,7 +28,7 @@ export const buildGetByIdQueryString = (params: GetByIdQueryParams): string => {
 export const buildGetAllQueryString = (params: GetAllQueryParams): string => {
   const queryParams: string[] = [];
 
-  if (params.search) queryParams.push(`search=${params.search}`);
+  if (params.searchQuery) queryParams.push(`search=${params.searchQuery}`);
   if (params.page) queryParams.push(`page=${params.page}`);
   if (params.limit) queryParams.push(`limit=${params.limit}`);
   if (params.sortType) queryParams.push(`sort_type=${params.sortType}`);

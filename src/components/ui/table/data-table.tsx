@@ -1,4 +1,3 @@
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
   Table,
   TableBody,
@@ -9,120 +8,95 @@ import {
 } from "@/components/ui/table";
 import {
   ColumnDef,
+  ColumnFiltersState,
+  SortingState,
+  VisibilityState,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   getPaginationRowModel,
+  getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ChevronDown, ChevronsUpDown, ChevronUp } from "lucide-react";
+import * as React from "react";
+import { ScrollArea, ScrollBar } from "../scroll-area";
+import { ColumnManager } from "./data-table-column-manager";
 
-interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
+interface DataTableProps<TData> {
   data: TData[];
-  pageCount: number;
-  paginationState: {
-    pageIndex: number;
-    pageSize: number;
-  };
-  handlePageChange: (pageIndex: number) => void;
-  sortBy?: string | null;
-  sortType?: "asc" | "desc";
-  onSortChange?: (column: string) => void;
+  columns: ColumnDef<TData>[];
 }
 
-export function DataTable<TData, TValue>({
-  columns = [],
-  data = [],
-  pageCount,
-  paginationState,
-  handlePageChange,
-  sortBy,
-  sortType,
-  onSortChange,
-}: DataTableProps<TData, TValue>) {
+const DataTable = <TData extends object>({
+  data,
+  columns,
+}: DataTableProps<TData>) => {
+  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+    []
+  );
+  const [columnVisibility, setColumnVisibility] =
+    React.useState<VisibilityState>({});
+  const [rowSelection, setRowSelection] = React.useState({});
+
   const table = useReactTable({
     data,
     columns,
-    pageCount,
-    state: {
-      pagination: paginationState,
-    },
-    onPaginationChange: (updater) => {
-      const newPageIndex =
-        typeof updater === "function"
-          ? updater(paginationState)?.pageIndex
-          : updater?.pageIndex;
-      handlePageChange(newPageIndex);
-    },
+    onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    manualPagination: true,
+    getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    onColumnVisibilityChange: setColumnVisibility,
+    onRowSelectionChange: setRowSelection,
+    state: {
+      sorting,
+      columnFilters,
+      columnVisibility,
+      rowSelection,
+    },
   });
 
   return (
-    <ScrollArea className="grid h-[calc(80vh-220px)] rounded-md border md:h-[calc(90dvh-240px)] ">
-      <Table className="relative">
+    <ScrollArea className="grid rounded-md border">
+      <Table className="relative min-w-[640px] overflow-x-auto">
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
-              {headerGroup?.headers?.map((header) => {
+              {headerGroup.headers.map((header) => {
                 return (
-                  <TableHead
-                    key={header?.id}
-                    className={`px-5 whitespace-nowrap ${
-                      header.column.getCanSort() ? "cursor-pointer" : ""
-                    }`}
-                    onClick={() =>
-                      header.column.getCanSort() &&
-                      onSortChange?.(header.column.id)
-                    }
-                  >
-                    {header?.isPlaceholder
+                  <TableHead className="px-3 whitespace-nowrap" key={header.id}>
+                    {header.isPlaceholder
                       ? null
                       : flexRender(
-                          header?.column?.columnDef?.header,
-                          header?.getContext()
+                          header.column.columnDef.header,
+                          header.getContext()
                         )}
-
-                    {header.column.getCanSort() && (
-                      <span>
-                        {sortBy === header.column.id ? (
-                          sortType === "asc" ? (
-                            <ChevronUp className="inline ml-1" size={17} />
-                          ) : (
-                            <ChevronDown className="inline ml-1" size={17} />
-                          )
-                        ) : (
-                          <ChevronsUpDown className="inline ml-1" size={17} />
-                        )}{" "}
-                      </span>
-                    )}
                   </TableHead>
                 );
               })}
             </TableRow>
           ))}
+          <ColumnManager table={table} />
         </TableHeader>
         <TableBody>
-          {table.getRowModel()?.rows?.length ? (
-            table.getRowModel()?.rows?.map((row) => (
+          {table.getRowModel().rows?.length ? (
+            table.getRowModel().rows.map((row) => (
               <TableRow
-                key={row?.id}
-                data-state={row?.getIsSelected() && "selected"}
+                key={row.id}
+                data-state={row.getIsSelected() && "selected"}
               >
-                {row.getVisibleCells()?.map((cell) => (
-                  <TableCell key={cell?.id} className="px-5">
-                    {flexRender(
-                      cell?.column?.columnDef?.cell,
-                      cell?.getContext()
-                    )}
+                {row.getVisibleCells().map((cell) => (
+                  <TableCell className="px-3" key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
               </TableRow>
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns?.length} className="h-24 text-center">
+              <TableCell colSpan={columns.length} className="h-24 text-center">
                 No results.
               </TableCell>
             </TableRow>
@@ -132,4 +106,6 @@ export function DataTable<TData, TValue>({
       <ScrollBar orientation="horizontal" />
     </ScrollArea>
   );
-}
+};
+
+export default DataTable;

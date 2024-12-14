@@ -1,4 +1,4 @@
-import { DataTable as ProductTable } from "@/components/ui/table/data-table";
+import DataTable from "@/components/ui/table/data-table";
 import { DataTableSkeleton } from "@/components/ui/table/data-table-skeleton";
 import { Product } from "@/constants/data";
 import { fakeProducts } from "@/constants/mock-api";
@@ -33,13 +33,7 @@ const ProductListingPage = () => {
 
   if (loading) return <DataTableSkeleton columnCount={5} rowCount={10} />;
 
-  return (
-    <ProductTable
-      columns={columns}
-      data={products}
-      totalItems={totalProducts}
-    />
-  );
+  return <DataTable columns={columns} data={products} />;
 };
 
 export default ProductListingPage;

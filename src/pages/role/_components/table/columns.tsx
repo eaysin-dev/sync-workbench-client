@@ -1,9 +1,9 @@
 import { Checkbox } from "@/components/ui/checkbox";
-import { Role } from "@/models/Role";
 import { ColumnDef } from "@tanstack/react-table";
+import { RoleTableRow } from "../../_type";
 import { CellAction } from "./cell-action";
 
-export const columns: ColumnDef<Role>[] = [
+export const columns: ColumnDef<RoleTableRow>[] = [
   {
     id: "select",
     header: ({ table }) => (

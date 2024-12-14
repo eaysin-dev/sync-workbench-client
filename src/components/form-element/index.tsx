@@ -113,7 +113,7 @@ type FormInputProps<TFieldValues extends FieldValues> = {
   placeholder: string;
   options?: string[];
   control: Control<TFieldValues>;
-  disabled: boolean;
+  disabled?: boolean;
   readOnly?: boolean;
   errorMsg?: string;
 };

@@ -1,10 +1,9 @@
-import { closeCreateModal } from "@/features/modal/modal-slice";
+import { userMessages } from "@/constants/user-messages";
 import { useCreateUserMutation } from "@/features/users/users-api";
+import useCloseModal from "@/hooks/use-close-modal";
+import { handleApiCall } from "@/utils/handle-api-call";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useTransition } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { toast } from "sonner";
 import { z } from "zod";
 
 const formSchema = z
@@ -36,38 +35,26 @@ const initialState: UserFormDataType = {
   status: "Pending",
 };
 
-const useUserForm = () => {
-  const dispatch = useDispatch();
-  const initialData = { ...initialState };
-  const [isPending, startTransition] = useTransition();
+const useUserCreate = () => {
+  const { closeAllModals } = useCloseModal();
 
   const form = useForm<UserFormDataType>({
     resolver: zodResolver(formSchema),
-    defaultValues: initialData,
+    defaultValues: { ...initialState },
   });
 
   const [createUser, { isError: isUserError, error: userError }] =
     useCreateUserMutation();
 
-  const closeModal = () => dispatch(closeCreateModal());
-
   const onSubmit = (data: UserFormDataType) => {
     const mutableData = { ...data } as Partial<UserFormDataType>;
     delete mutableData?.confirmPassword;
 
-    startTransition(() => {
-      createUser(mutableData as UserFormDataType)
-        .unwrap()
-        .then(() => {
-          toast.success("User created successfully!");
-          dispatch(closeCreateModal());
-        })
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .catch((error: any) => {
-          toast.error(
-            error?.data?.message || "Failed to create user. Please try again."
-          );
-        });
+    handleApiCall({
+      apiCall: createUser(data).unwrap(),
+      successMessage: userMessages?.success?.create,
+      errorMessage: userMessages?.error?.update,
+      onSuccess: () => closeAllModals(),
     });
   };
 
@@ -76,10 +63,10 @@ const useUserForm = () => {
     isUserError,
     userError,
     form,
-    isPending,
     errors: form.formState.errors,
-    closeModal,
+    isSubmitting: form?.formState?.isSubmitting,
+    closeAllModals,
   };
 };
 
-export default useUserForm;
+export default useUserCreate;

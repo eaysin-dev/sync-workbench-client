@@ -39,4 +39,13 @@ export interface RootResponse<T> {
   statusCode: number;
   message: string;
   data: T;
+  pagination: Pagination;
+  links: unknown;
+}
+
+export interface Pagination {
+  page: number;
+  limit: number;
+  total: number;
+  totalPage: number;
 }

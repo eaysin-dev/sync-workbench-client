@@ -1,6 +1,5 @@
 import PublicGuard from "@/components/guards/public-guard";
-import LoginPage from "@/pages/auth/login";
-import RegisterPage from "@/pages/auth/register";
+import { LoginPage, RegisterPage } from "@/routes/lazy-loaded-components";
 import { RouteObject } from "react-router-dom";
 import { getLoginLink, getRegisterLink } from "./router-link";
 
