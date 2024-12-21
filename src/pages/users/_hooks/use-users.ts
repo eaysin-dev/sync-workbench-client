@@ -22,7 +22,7 @@ export const useUsers = () => {
     pageSize,
   } = usePagination({});
 
-  const { data, isLoading, isError, error } = useReadUsersQuery({
+  const { data, isLoading, isFetching, isError, error } = useReadUsersQuery({
     limit: pageSize,
     page: currentPage,
     populate: ["role"],
@@ -38,7 +38,7 @@ export const useUsers = () => {
   return {
     // User data
     users,
-    isLoading,
+    isLoading: isLoading || isFetching,
     isError,
     error,
     totalItems: data?.pagination?.total || 0,

@@ -3,6 +3,7 @@ import DefaultModal from "@/components/modal/default-modal";
 import Pagination from "@/components/pagination";
 import { Separator } from "@/components/ui/separator";
 import DataTable from "@/components/ui/table/data-table";
+import { DataTableSkeleton } from "@/components/ui/table/data-table-skeleton";
 import useModalClose from "@/hooks/use-close-modal";
 import PageContainer from "@/layout/root-layout/page-container";
 import UserForm from "./_components/forms/user-create";
@@ -34,6 +35,7 @@ const UsersPage = () => {
     totalItems,
     setPage,
     pageSize,
+    isLoading,
   } = useUsers();
 
   return (
@@ -58,7 +60,11 @@ const UsersPage = () => {
           updateFilter={updateFilter}
         />
 
-        <DataTable columns={columns} data={users} />
+        {isLoading ? (
+          <DataTableSkeleton rowCount={5} columnCount={columns.length} />
+        ) : (
+          <DataTable columns={columns} data={users} />
+        )}
 
         <Pagination
           handlePageChange={handlePageChange}

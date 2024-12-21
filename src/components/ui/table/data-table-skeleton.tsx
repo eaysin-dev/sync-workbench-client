@@ -66,7 +66,7 @@ export function DataTableSkeleton({
           <ScrollBar orientation="horizontal" />
         </ScrollArea>
       </div>
-      <div className="flex w-full flex-col items-center justify-between gap-4 overflow-auto px-2 py-1 sm:flex-row sm:gap-8">
+      {/* <div className="flex w-full flex-col items-center justify-between gap-4 overflow-auto px-2 py-1 sm:flex-row sm:gap-8">
         <div className="flex-1">
           <Skeleton className="h-8 w-40" />
         </div>
@@ -85,7 +85,7 @@ export function DataTableSkeleton({
             <Skeleton className="hidden size-8 lg:block" />
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
