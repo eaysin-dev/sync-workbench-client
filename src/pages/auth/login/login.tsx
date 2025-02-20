@@ -1,5 +1,5 @@
-import Login from "./_components/forms/login";
-import useLogin from "./hooks/use-login";
+import Login from './_components/forms/login';
+import useLogin from './hooks/use-login';
 
 const LoginForm = () => {
   const {
@@ -10,6 +10,7 @@ const LoginForm = () => {
     loginError,
     onSubmit,
     rememberMe,
+    isLoginLoading,
   } = useLogin();
 
   return (
@@ -21,6 +22,7 @@ const LoginForm = () => {
       loginError={loginError}
       onSubmit={onSubmit}
       rememberMe={rememberMe}
+      isLoginLoading={isLoginLoading}
     />
   );
 };
