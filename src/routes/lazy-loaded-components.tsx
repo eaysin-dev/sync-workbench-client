@@ -1,10 +1,10 @@
-import { lazy } from "react";
+import { lazy } from 'react';
 
 export const OverViewPage = lazy(
-  () => import("@/pages/overview/_components/overview")
+  () => import('@/features/overview/_components/overview'),
 );
-export const UsersPage = lazy(() => import("@/pages/users"));
-export const RolesPage = lazy(() => import("@/pages/role"));
+export const UsersPage = lazy(() => import('@/features/users'));
+export const RolesPage = lazy(() => import('@/features/role'));
 
-export const LoginPage = lazy(() => import("@/pages/auth/login"));
-export const RegisterPage = lazy(() => import("@/pages/auth/register"));
+export const LoginPage = lazy(() => import('@/features/auth/login'));
+export const RegisterPage = lazy(() => import('@/features/auth/register'));

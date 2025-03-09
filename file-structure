@@ -1,0 +1,255 @@
+/home/eaysin/Desktop/code/working-repo/sync-workbench-client/
+├── .env
+├── .gitignore
+├── README.md
+├── components.json
+├── eslint.config.js
+├── index.html
+├─] node_modules/ (ignored)
+├── package.json
+├── postcss.config.js
+├── public/
+│   └── vite.svg
+├── src/
+│   ├── App.tsx
+│   ├── api/
+│   │   ├── API/
+│   │   │   ├── API.ts
+│   │   │   └── tags/
+│   │   │       └── index.ts
+│   │   ├── auth/
+│   │   │   ├── auth-api.ts
+│   │   │   └── auth-slice.ts
+│   │   ├── employee/
+│   │   │   ├── employee-api.ts
+│   │   │   └── employee-slice.ts
+│   │   ├── modal/
+│   │   │   └── modal-slice.ts
+│   │   ├── role/
+│   │   │   └── role-api.ts
+│   │   └── users/
+│   │       └── users-api.ts
+│   ├── app/
+│   │   └── store.ts
+│   ├── assets/
+│   │   └── react.svg
+│   ├── components/
+│   │   ├── breadcrumbs.tsx
+│   │   ├── date-range-picker.tsx
+│   │   ├── error-boundary/
+│   │   │   ├── error-boundary-fallback.tsx
+│   │   │   ├── error-boundary-layout.tsx
+│   │   │   └── error-boundary.tsx
+│   │   ├── file-uploader.tsx
+│   │   ├── form-card-skeleton.tsx
+│   │   ├── form-element/
+│   │   │   └── index.tsx
+│   │   ├── guards/
+│   │   │   ├── private-guard.tsx
+│   │   │   └── public-guard.tsx
+│   │   ├── heading/
+│   │   │   ├── heading.tsx
+│   │   │   └── page-heading.tsx
+│   │   ├── icons.tsx
+│   │   ├── kbar/
+│   │   │   ├── index.tsx
+│   │   │   ├── render-result.tsx
+│   │   │   ├── result-item.tsx
+│   │   │   └── use-theme-switching.tsx
+│   │   ├── loader/
+│   │   │   ├── loader.module.css
+│   │   │   └── loader.tsx
+│   │   ├── modal/
+│   │   │   ├── alert-modal.tsx
+│   │   │   ├── default-modal.tsx
+│   │   │   └── modal-action-button.tsx
+│   │   ├── mode-toggle.tsx
+│   │   ├── nav-main.tsx
+│   │   ├── nav-projects.tsx
+│   │   ├── nav-user.tsx
+│   │   ├── not-found/
+│   │   │   └── page-not-found.tsx
+│   │   ├── not-found.tsx
+│   │   ├── pagination/
+│   │   │   └── index.tsx
+│   │   ├── redirect-to-login/
+│   │   │   └── index.tsx
+│   │   ├── search-input.tsx
+│   │   ├── team-switcher.tsx
+│   │   ├── theme-toggle/
+│   │   │   ├── theme-provider.tsx
+│   │   │   └── theme-toggle.tsx
+│   │   └── ui/
+│   │       ├── accordion.tsx
+│   │       ├── alert-dialog.tsx
+│   │       ├── avatar.tsx
+│   │       ├── badge.tsx
+│   │       ├── breadcrumb.tsx
+│   │       ├── button.tsx
+│   │       ├── calendar.tsx
+│   │       ├── card.tsx
+│   │       ├── chart.tsx
+│   │       ├── checkbox.tsx
+│   │       ├── collapsible.tsx
+│   │       ├── command.tsx
+│   │       ├── dialog.tsx
+│   │       ├── dropdown-menu.tsx
+│   │       ├── form.tsx
+│   │       ├── input.tsx
+│   │       ├── label.tsx
+│   │       ├── modal.tsx
+│   │       ├── password-input.tsx
+│   │       ├── popover.tsx
+│   │       ├── progress.tsx
+│   │       ├── radio-group.tsx
+│   │       ├── scroll-area.tsx
+│   │       ├── select.tsx
+│   │       ├── separator.tsx
+│   │       ├── sheet.tsx
+│   │       ├── sidebar.tsx
+│   │       ├── skeleton.tsx
+│   │       ├── sonner.tsx
+│   │       ├── table/
+│   │       │   ├── data-table-column-manager.tsx
+│   │       │   ├── data-table-filter-box.tsx
+│   │       │   ├── data-table-reset-filter.tsx
+│   │       │   ├── data-table-search.tsx
+│   │       │   ├── data-table-skeleton.tsx
+│   │       │   ├── data-table-sortable-header.tsx
+│   │       │   └── data-table.tsx
+│   │       ├── table.tsx
+│   │       ├── tabs.tsx
+│   │       ├── textarea.tsx
+│   │       ├── toast.tsx
+│   │       ├── toaster.tsx
+│   │       └── tooltip.tsx
+│   ├── config/
+│   │   └── default.ts
+│   ├── constants/
+│   │   ├── data.ts
+│   │   ├── mock-api.ts
+│   │   ├── modal-types.ts
+│   │   └── user-messages.ts
+│   ├── features/
+│   │   ├── auth/
+│   │   │   ├── login/
+│   │   │   │   ├── _components/
+│   │   │   │   │   ├── forms/
+│   │   │   │   │   │   └── login.tsx
+│   │   │   │   │   ├── github-auth-button.tsx
+│   │   │   │   │   └── user-auth-form.tsx
+│   │   │   │   ├── hooks/
+│   │   │   │   │   └── use-login.ts
+│   │   │   │   ├── index.tsx
+│   │   │   │   └── login.tsx
+│   │   │   └── register/
+│   │   │       ├── _components/
+│   │   │       │   └── register.tsx
+│   │   │       ├── hooks/
+│   │   │       │   └── use-register.ts
+│   │   │       ├── index.tsx
+│   │   │       └── register-form.tsx
+│   │   ├── overview/
+│   │   │   ├── _components/
+│   │   │   │   ├── area-graph.tsx
+│   │   │   │   ├── bar-graph.tsx
+│   │   │   │   ├── overview.tsx
+│   │   │   │   ├── pie-graph.tsx
+│   │   │   │   └── recent-sales.tsx
+│   │   │   └── page.tsx
+│   │   ├── role/
+│   │   │   ├── _components/
+│   │   │   │   ├── forms/
+│   │   │   │   │   ├── user-create.tsx
+│   │   │   │   │   └── user-edit.tsx
+│   │   │   │   └── table/
+│   │   │   │       ├── cell-action.tsx
+│   │   │   │       ├── columns.tsx
+│   │   │   │       ├── filters.tsx
+│   │   │   │       └── index.tsx
+│   │   │   ├── _type/
+│   │   │   │   └── index.ts
+│   │   │   ├── hooks/
+│   │   │   │   ├── use-create.ts
+│   │   │   │   └── use-user.ts
+│   │   │   └── index.tsx
+│   │   └── users/
+│   │       ├── _components/
+│   │       │   ├── forms/
+│   │       │   │   ├── user-create.tsx
+│   │       │   │   └── user-edit.tsx
+│   │       │   └── table/
+│   │       │       ├── cell-action.tsx
+│   │       │       ├── columns.tsx
+│   │       │       └── filters.tsx
+│   │       ├── _hooks/
+│   │       │   ├── use-user-create.ts
+│   │       │   ├── use-user-edit.ts
+│   │       │   ├── use-users-modals.ts
+│   │       │   └── use-users.ts
+│   │       ├── _type/
+│   │       │   └── index.ts
+│   │       └── index.tsx
+│   ├── hooks/
+│   │   ├── auth/
+│   │   │   └── use-auth-check.ts
+│   │   ├── use-breadcrumbs.ts
+│   │   ├── use-callback-ref.ts
+│   │   ├── use-close-modal.ts
+│   │   ├── use-controllable-state.ts
+│   │   ├── use-data-table-filters.ts
+│   │   ├── use-debounce.ts
+│   │   ├── use-filter.ts
+│   │   ├── use-mobile.ts
+│   │   ├── use-multistep-form.ts
+│   │   ├── use-pagination.ts
+│   │   ├── use-table-filters.ts
+│   │   └── use-toast.ts
+│   ├── index.css
+│   ├── layout/
+│   │   ├── auth-layout/
+│   │   │   └── index.tsx
+│   │   └── root-layout/
+│   │       ├── app-sidebar/
+│   │       │   ├── content.tsx
+│   │       │   ├── footer.tsx
+│   │       │   ├── header.tsx
+│   │       │   └── index.tsx
+│   │       ├── header.tsx
+│   │       ├── index.tsx
+│   │       ├── page-container.tsx
+│   │       └── user-nav.tsx
+│   ├── lib/
+│   │   ├── form-schema.ts
+│   │   ├── menu-list.ts
+│   │   └── utils.ts
+│   ├── main.tsx
+│   ├── models/
+│   │   ├── Employee.ts
+│   │   ├── Permission.ts
+│   │   ├── Role.ts
+│   │   └── User.ts
+│   ├── routes/
+│   │   ├── index.tsx
+│   │   ├── lazy-loaded-components.tsx
+│   │   ├── private-route.tsx
+│   │   ├── public-route.tsx
+│   │   ├── router-link.ts
+│   │   └── router.tsx
+│   ├── types/
+│   │   ├── error.ts
+│   │   ├── form-type.ts
+│   │   └── index.ts
+│   ├── utils/
+│   │   ├── build-query-string.ts
+│   │   ├── cookie-manager.ts
+│   │   ├── decode-token.ts
+│   │   ├── get-tokens.ts
+│   │   └── handle-api-call.ts
+│   └── vite-env.d.ts
+├── tailwind.config.js
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.node.json
+├── vite.config.ts
+└── yarn.lock

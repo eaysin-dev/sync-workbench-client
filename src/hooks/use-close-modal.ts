@@ -1,14 +1,14 @@
-import defaultConfig from "@/config/default";
-import { closeModal, ModalType } from "@/features/modal/modal-slice";
-import { useCallback } from "react";
-import { useDispatch } from "react-redux";
+import { closeModal, ModalType } from '@/api/modal/modal-slice';
+import defaultConfig from '@/config/default';
+import { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 
 const useCloseModal = () => {
   const dispatch = useDispatch();
 
   const closeSpecificModal = useCallback(
     (modalType: ModalType) => dispatch(closeModal(modalType)),
-    [dispatch]
+    [dispatch],
   );
 
   const closeAllModals = useCallback(() => {

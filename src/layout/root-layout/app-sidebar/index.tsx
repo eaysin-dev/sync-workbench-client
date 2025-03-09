@@ -1,4 +1,5 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { logout } from '@/api/auth/auth-slice';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,7 +8,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu';
 import {
   Sidebar,
   SidebarContent,
@@ -17,36 +18,35 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
-} from "@/components/ui/sidebar";
-import { logout } from "@/features/auth/auth-slice";
+} from '@/components/ui/sidebar';
 import {
   BadgeCheck,
   Bell,
   ChevronsUpDown,
   CreditCard,
   LogOut,
-} from "lucide-react";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import Content from "./content";
-import Header from "./header";
+} from 'lucide-react';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import Content from './content';
+import Header from './header';
 
 export default function AppSidebar() {
   const dispatch = useDispatch();
   const [user] = useState({
-    name: "John Doe", // Default name
-    email: "john.doe@example.com", // Default email
-    image: "", // Default image
+    name: 'John Doe', // Default name
+    email: 'john.doe@example.com', // Default email
+    image: '', // Default image
   });
 
   const handleLogout = () => dispatch(logout());
 
   return (
-    <Sidebar collapsible="icon">
+    <Sidebar collapsible='icon'>
       <SidebarHeader>
         <Header />
       </SidebarHeader>
-      <SidebarContent className="overflow-x-hidden">
+      <SidebarContent className='overflow-x-hidden'>
         <Content />
       </SidebarContent>
 
@@ -56,44 +56,44 @@ export default function AppSidebar() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <SidebarMenuButton
-                  size="lg"
-                  className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                  size='lg'
+                  className='data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground'
                 >
-                  <Avatar className="h-8 w-8 rounded-lg">
-                    <AvatarImage src={user.image || ""} alt={user.name || ""} />
-                    <AvatarFallback className="rounded-lg">
-                      {user.name.slice(0, 2).toUpperCase() || "CN"}
+                  <Avatar className='h-8 w-8 rounded-lg'>
+                    <AvatarImage src={user.image || ''} alt={user.name || ''} />
+                    <AvatarFallback className='rounded-lg'>
+                      {user.name.slice(0, 2).toUpperCase() || 'CN'}
                     </AvatarFallback>
                   </Avatar>
-                  <div className="grid flex-1 text-left text-sm leading-tight">
-                    <span className="truncate font-semibold">{user.name}</span>
-                    <span className="truncate text-xs">{user.email}</span>
+                  <div className='grid flex-1 text-left text-sm leading-tight'>
+                    <span className='truncate font-semibold'>{user.name}</span>
+                    <span className='truncate text-xs'>{user.email}</span>
                   </div>
-                  <ChevronsUpDown className="ml-auto size-4" />
+                  <ChevronsUpDown className='ml-auto size-4' />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
               <DropdownMenuContent
-                className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
-                side="bottom"
-                align="end"
+                className='w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg'
+                side='bottom'
+                align='end'
                 sideOffset={4}
               >
-                <DropdownMenuLabel className="p-0 font-normal">
-                  <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                    <Avatar className="h-8 w-8 rounded-lg">
+                <DropdownMenuLabel className='p-0 font-normal'>
+                  <div className='flex items-center gap-2 px-1 py-1.5 text-left text-sm'>
+                    <Avatar className='h-8 w-8 rounded-lg'>
                       <AvatarImage
-                        src={user.image || ""}
-                        alt={user.name || ""}
+                        src={user.image || ''}
+                        alt={user.name || ''}
                       />
-                      <AvatarFallback className="rounded-lg">
-                        {user.name.slice(0, 2).toUpperCase() || "CN"}
+                      <AvatarFallback className='rounded-lg'>
+                        {user.name.slice(0, 2).toUpperCase() || 'CN'}
                       </AvatarFallback>
                     </Avatar>
-                    <div className="grid flex-1 text-left text-sm leading-tight">
-                      <span className="truncate font-semibold">
+                    <div className='grid flex-1 text-left text-sm leading-tight'>
+                      <span className='truncate font-semibold'>
                         {user.name}
                       </span>
-                      <span className="truncate text-xs">{user.email}</span>
+                      <span className='truncate text-xs'>{user.email}</span>
                     </div>
                   </div>
                 </DropdownMenuLabel>

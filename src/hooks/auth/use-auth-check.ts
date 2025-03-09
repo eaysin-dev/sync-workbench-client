@@ -1,11 +1,11 @@
-import { RootState } from "@/app/store";
-import { logout } from "@/features/auth/auth-slice";
-import { useReadEmployeeByUserIdQuery } from "@/features/employee/employee-api";
-import { useReadUserByIdQuery } from "@/features/users/users-api";
-import { decodeToken } from "@/utils/decode-token";
-import { getTokens } from "@/utils/get-tokens";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { logout } from '@/api/auth/auth-slice';
+import { useReadEmployeeByUserIdQuery } from '@/api/employee/employee-api';
+import { useReadUserByIdQuery } from '@/api/users/users-api';
+import { RootState } from '@/app/store';
+import { decodeToken } from '@/utils/decode-token';
+import { getTokens } from '@/utils/get-tokens';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 const useAuthCheck = () => {
   const dispatch = useDispatch();
@@ -18,12 +18,12 @@ const useAuthCheck = () => {
 
   const { accessToken, refreshToken } = getTokens(
     storedAccToken,
-    storedRefToken
+    storedRefToken,
   );
 
   let decodedUser;
   try {
-    decodedUser = decodeToken(accessToken || "");
+    decodedUser = decodeToken(accessToken || '');
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     decodedUser = null;
@@ -31,16 +31,16 @@ const useAuthCheck = () => {
     setIsAuthChecking(false);
   }
 
-  const userId = decodedUser?.id || "";
+  const userId = decodedUser?.id || '';
   const isAuthenticate = Boolean(isLoggedIn && accessToken && refreshToken);
 
   const { isLoading: userIsLoading } = useReadUserByIdQuery(
-    { id: userId, populate: ["role"] },
-    { skip: !userId, refetchOnMountOrArgChange: true }
+    { id: userId, populate: ['role'] },
+    { skip: !userId, refetchOnMountOrArgChange: true },
   );
   const { isLoading: employeeIsLoading } = useReadEmployeeByUserIdQuery(
     { id: userId },
-    { skip: !userId, refetchOnMountOrArgChange: true }
+    { skip: !userId, refetchOnMountOrArgChange: true },
   );
 
   // Manage login and loading state based on query results

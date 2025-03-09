@@ -1,9 +1,9 @@
-import { API } from "@/features/API/API";
-import authReducer from "@/features/auth/auth-slice";
-import employeeReducer from "@/features/employee/employee-slice";
-import modalReducer from "@/features/modal/modal-slice";
-import { configureStore } from "@reduxjs/toolkit";
-import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import authReducer from '@/api/auth/auth-slice';
+import { API } from '@/api/base-api';
+import employeeReducer from '@/api/employee/employee-slice';
+import modalReducer from '@/api/modal/modal-slice';
+import { configureStore } from '@reduxjs/toolkit';
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
 export const store = configureStore({
   reducer: {
@@ -12,7 +12,7 @@ export const store = configureStore({
     employee: employeeReducer,
     modal: modalReducer,
   },
-  devTools: import.meta.env.MODE !== "production",
+  devTools: import.meta.env.MODE !== 'production',
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
